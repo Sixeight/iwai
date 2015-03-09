@@ -3,7 +3,7 @@ package Iwai;
 use strict;
 use warnings;
 
-use Plack::Request;
+use Iwai::Context;
 
 sub as_psgi {
   my $class = shift;
@@ -15,8 +15,9 @@ sub as_psgi {
 
 sub run {
   my ($class, $env) = @_;
-  my $req = Plack::Request->new($env);
-  $req->new_response(200)->finalize;
+  my $context = Iwai::Context->new($env);
+  $context->render_text("ok");
+  $context->response->finalize;
 }
 
 1;
