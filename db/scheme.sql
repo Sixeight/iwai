@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS wishlists (
   url   VARCHAR(64) NOT NULL UNIQUE,
   title VARCHAR(64) NOT NULL,
   memo  VARCHAR(255),
+  user_id INT NOT NULL,
   created_at TIMESTAMP NOT NULL,
   updatd_at TIMESTAMP NOT NULL
 );
