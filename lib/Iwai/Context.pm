@@ -41,9 +41,9 @@ sub render_text {
 
 sub render_html {
   my $self = shift;
-  my $res = $self->response;
   my $view = Iwai::View->new($self);
   my $html = $view->render_html(@_);
+  my $res = $self->response;
   $res->code(200);
   $res->content_type("text/html");
   $res->content($html);
