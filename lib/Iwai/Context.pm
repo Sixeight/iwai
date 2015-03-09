@@ -14,6 +14,7 @@ use Class::Accessor::Lite::Lazy (
 
 use Iwai::View;
 use Iwai::Route;
+use Iwai::Error;
 
 my $json_encoder = JSON::XS->new->utf8;
 
@@ -61,6 +62,14 @@ sub render_json {
   $res->code(200);
   $res->content_type("application/json");
   $res->content($json);
+}
+
+sub render_error {
+  my ($self, $error) = @_;
+  my $res = $self->response;
+  $res->code($error->code);
+  $res->content_type("text/plain");
+  $res->content($error->message);
 }
 
 1;
