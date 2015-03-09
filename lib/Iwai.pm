@@ -16,7 +16,7 @@ sub as_psgi {
 sub run {
   my ($class, $env) = @_;
   my $context = Iwai::Context->new($env);
-  $context->render_text("ok");
+  $context->render_html("index");
   $context->response->finalize;
 }
 

@@ -11,6 +11,8 @@ use Class::Accessor::Lite::Lazy (
   new => 0,
 );
 
+use Iwai::View;
+
 sub new ($) {
   my ($class, $env) = @_;
   bless {env => $env}, $class;
@@ -32,6 +34,16 @@ sub render_text {
   $res->code(200);
   $res->content_type("text/plane");
   $res->content(@_);
+}
+
+sub render_html {
+  my $self = shift;
+  my $res = $self->response;
+  my $view = Iwai::View->new($self);
+  my $html = $view->render_html(@_);
+  $res->code(200);
+  $res->content_type("text/html");
+  $res->content($html);
 }
 
 1;
