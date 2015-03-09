@@ -26,6 +26,18 @@ sub root {
   $root;
 }
 
+sub is_test {
+  $_[0]->env =~ /test/;
+}
+
+sub is_development {
+  $_[0]->env =~ /development/;
+}
+
+sub is_production {
+  $_[0]->env =~ /production/;
+}
+
 config db => +{
   time_zone => "UTC",
 };
