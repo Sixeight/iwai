@@ -11,6 +11,6 @@ development:
     pass: "pass"
 
 production:
-  dsn: "dbi:Pg:dbname=iwai"
-  user: "user"
-  pass: "pass"
+  dsn:  "<: ENV("DB_DSN")  :>"
+  user: "<: ENV("DB_USER") :>"
+  pass: "<: ENV("DB_PASS") :>"

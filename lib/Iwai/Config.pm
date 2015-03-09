@@ -4,9 +4,20 @@ use strict;
 use warnings;
 
 use Config::ENV "PLACK_ENV", export => "config";
+use Text::Xslate;
 use YAML::XS ();
 
-my $db_yaml = YAML::XS::LoadFile("config/database.yml");
+our $DB_CONFIG_PATH = "config/database.yml";
+
+my $tx = Text::Xslate->new(
+  function => {
+    ENV => sub {
+      $ENV{$_[0]}
+    },
+  },
+);
+my $yaml = $tx->render($DB_CONFIG_PATH);
+my $db_yaml = YAML::XS::Load($yaml);
 
 config db => +{
   time_zone => "UTC",
