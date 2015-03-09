@@ -1,0 +1,24 @@
+### https://raw.github.com/github/gitignore/4a9d41f8947b9fe5850914abb7e59a59e1ae2cb6/Perl.gitignore
+
+/blib/
+/.build/
+_build/
+cover_db/
+inc/
+Build
+!Build/
+Build.bat
+.last_cover_stats
+/Makefile
+/Makefile.old
+/MANIFEST.bak
+/META.yml
+/META.json
+/MYMETA.*
+nytprof.out
+/pm_to_blib
+*.o
+*.bs
+/_eumm/
+
+/log
