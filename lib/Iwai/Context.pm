@@ -7,12 +7,13 @@ use Plack::Request;
 use JSON::XS ();
 
 use Class::Accessor::Lite::Lazy (
-  ro_lazy => [qw( request response )],
+  ro_lazy => [qw( request response router )],
   ro      => [qw( env )],
   new => 0,
 );
 
 use Iwai::View;
+use Iwai::Route;
 
 my $json_encoder = JSON::XS->new->utf8;
 
@@ -29,6 +30,10 @@ sub _build_request {
 sub _build_response {
   my $self = shift;
   $self->request->new_response(200);
+}
+
+sub _build_router {
+  Iwai::Route->mk_router;
 }
 
 sub render_text {
