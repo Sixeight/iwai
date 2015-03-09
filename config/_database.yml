@@ -1,0 +1,16 @@
+# This is a sample configuration file for database.
+
+test:
+  dsn: "dbi:Pg:dbname=iwai_test;host=localhost"
+  user: "user"
+  pass: "pass"
+
+development:
+    dsn: "dbi:Pg:dbname=iwai_development;host=localhost"
+    user: "user"
+    pass: "pass"
+
+production:
+  dsn: "dbi:Pg:dbname=iwai"
+  user: "user"
+  pass: "pass"
