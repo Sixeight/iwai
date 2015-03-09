@@ -17,5 +17,7 @@ CREATE TABLE IF NOT EXISTS wishlists (
   user_id INT NOT NULL,
 
   created_at TIMESTAMP NOT NULL,
-  updatd_at  TIMESTAMP NOT NULL
+  updated_at  TIMESTAMP NOT NULL
 );
+/* CREATE INDEX has no IF NOT EXISTS */
+CREATE INDEX wishlists_user_id_index ON wishlists (user_id);
