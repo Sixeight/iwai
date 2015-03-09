@@ -72,4 +72,9 @@ sub render_error {
   $res->content($error->message);
 }
 
+sub redirect {
+  my ($self, $url) = @_;
+  $self->response->redirect($url);
+}
+
 1;
