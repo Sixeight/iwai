@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Plack::Request;
+use JSON::XS ();
 
 use Class::Accessor::Lite::Lazy (
   ro_lazy => [qw( request response )],
@@ -12,6 +13,8 @@ use Class::Accessor::Lite::Lazy (
 );
 
 use Iwai::View;
+
+my $json_encoder = JSON::XS->new->utf8;
 
 sub new ($) {
   my ($class, $env) = @_;
@@ -44,6 +47,15 @@ sub render_html {
   $res->code(200);
   $res->content_type("text/html");
   $res->content($html);
+}
+
+sub render_json {
+  my $self = shift;
+  my $json = $json_encoder->encode(@_);
+  my $res = $self->response;
+  $res->code(200);
+  $res->content_type("application/json");
+  $res->content($json);
 }
 
 1;
