@@ -21,8 +21,10 @@ var Form = React.createClass({
     });
   },
   handleChange: function(e) {
+    var word = e.target.value.trim();
+    this.props.onChange(word.toLowerCase());
     this.setState({
-      url: e.target.value.trim()
+      url: word
     });
   },
   render: function() {
@@ -38,6 +40,14 @@ var Form = React.createClass({
 
 var List = React.createClass({
   render: function() {
+    var wishlists = this.props.wishlists;
+    var search = this.props.search;
+    if (search.length > 0 && !search.startsWith("http")) {
+      wishlists = wishlists.filter(function(list) {
+        return list.name.toLowerCase().match(search) ||
+          list.title.toLowerCase().match(search);
+      });
+    }
     return (
       <table className="table table-striped">
         <thead>
@@ -49,7 +59,7 @@ var List = React.createClass({
           </tr>
         </thead>
         <tbody>
-          {this.props.wishlists.map(function(list) {
+          {wishlists.map(function(list) {
             return (
               <tr>
                 <td><a href={list.url} target="_blank">{list.title}</a></td>
@@ -87,6 +97,7 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       wishlists: [],
+      search: "",
       error: ""
     };
   },
@@ -124,12 +135,17 @@ var App = React.createClass({
     }.bind(this));
     updateList();
   },
+  handleSearch: function(word) {
+    this.setState({
+      search: word
+    });
+  },
   render: function() {
     return (
       <div>
         <Error error={this.state.error} />
-        <Form />
-        <List wishlists={this.state.wishlists} />
+        <Form onChange={this.handleSearch} />
+        <List wishlists={this.state.wishlists} search={this.state.search} />
       </div>
     );
   },
