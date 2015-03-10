@@ -22,6 +22,7 @@ sub create {
   my ($class, $c) = @_;
   my $params = $c->request->parameters;
   my $url = $params->{url};
+  $url =~ s/^https/http/;
   my $info = Iwai::Util::ListInfoFetcher->fetch($url)
     or die Iwai::Error->new(code => 404);
 
