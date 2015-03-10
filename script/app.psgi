@@ -25,5 +25,11 @@ builder {
     response_time => 1,
     logger        => sub { $logger->print(@_) },
   );
+  enable "Session::Cookie", secret => "sakura";
+  enable "TwitterOAuth", (
+    consumer_key    => "R3Wx7PhmdtojJYL4nRyETW9bw",
+    consumer_secret => "YsAf1TRdcQu2vLhRkExCXoBhBFJoO3jgg3IA7tCmAEIArWP1t3",
+    login_path      => "/login",
+  );
   $app;
 };
