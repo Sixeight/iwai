@@ -16,6 +16,11 @@ sub mk_router {
       action     => "index",
     };
 
+    connect "/list.json" => {
+      controller => "List",
+      action     => "json",
+    };
+
     connect "/add" => {
       controller => "List",
       action     => "create",
