@@ -7,7 +7,7 @@ use Plack::Request;
 use JSON::XS ();
 
 use Class::Accessor::Lite::Lazy (
-  ro_lazy => [qw( request response router )],
+  ro_lazy => [qw( request response router user )],
   ro      => [qw( env )],
   new => 0,
 );
@@ -15,6 +15,7 @@ use Class::Accessor::Lite::Lazy (
 use Iwai::View;
 use Iwai::Route;
 use Iwai::Error;
+use Iwai::Service::User;
 
 my $json_encoder = JSON::XS->new->utf8;
 
@@ -35,6 +36,15 @@ sub _build_response {
 
 sub _build_router {
   Iwai::Route->mk_router;
+}
+
+sub _build_user {
+  my $self = shift;
+  my $twitter_id = $self->env->{"twitter.id"};
+  my $name = $self->env->{"twitter.screen_name"};
+  my $user = Iwai::Service::User->find_by_twitter_id($twitter_id);
+  $user //= Iwai::Service::User->create({name => $name, twitter_id => $twitter_id});
+  $user;
 }
 
 sub render_text {
