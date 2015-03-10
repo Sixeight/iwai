@@ -15,6 +15,7 @@ use Class::Accessor::Lite::Lazy (
 use Iwai::View;
 use Iwai::Route;
 use Iwai::Error;
+use Iwai::Config;
 use Iwai::Service::User;
 
 my $json_encoder = JSON::XS->new->utf8;
@@ -81,6 +82,9 @@ sub render_error {
   my $res = $self->response;
   $res->code($error->code);
   $res->content_type("text/plain");
+  unless (config->is_production) {
+    $res->header("X-Error" => $error->message);
+  }
   $res->content($error->message);
 }
 
