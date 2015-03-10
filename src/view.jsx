@@ -22,7 +22,7 @@ var Form = React.createClass({
   },
   handleChange: function(e) {
     this.setState({
-      url: e.target.value
+      url: e.target.value.trim()
     });
   },
   render: function() {
