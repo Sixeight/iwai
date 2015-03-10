@@ -9,7 +9,7 @@ use Iwai::Error;
 
 sub index {
   my ($class, $c) = @_;
-  $c->render_text("index");
+  $c->render_html("index");
 }
 
 sub json {
