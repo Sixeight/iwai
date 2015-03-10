@@ -12,10 +12,9 @@ gulp.task("browserify", function() {
     entries: ["./src/main.js"],
     transform: [reactify]
   });
-  return gulp
-    .src("./src/main.js", {"read": false})
+  bs.bundle()
+    .on("error", function() {})
     .pipe(plumber())
-    .pipe(bs.bundle())
     .pipe(source("app.js"))
     .pipe(buffer())
     .pipe(uglify())
