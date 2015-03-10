@@ -56,9 +56,11 @@ sub call {
           );
           $res->is_success or die;
           my $user_info = decode_json($res->decoded_content || $res->content);
-          my $screen_name = $user_info->{screen_name};
-          my $id = $user_info->{id};
-          $session->set(twitter_user_info => {screen_name => $screen_name, id => $id});
+          my $user_info = {
+            screen_name => $user_info->{screen_name},
+            id          => $user_info->{id},
+          };
+          $session->set(twitter_user_info => $user_info);
         }
         $response->redirect($session->get("oauth_location") || '/' );
         $session->remove("oauth_location");
@@ -77,8 +79,7 @@ sub call {
   };
 
   my $user_info = ($session->get("twitter_user_info") || {});
-  $env->{"twitter.screen_name"} = $user_info->{screen_name};
-  $env->{"twitter.id"} = $user_info->{id};
+  $env->{"twitter.user_info"} = $user_info;
   ($handlers->{$env->{PATH_INFO}} || $self->app)->($env);
 }
 

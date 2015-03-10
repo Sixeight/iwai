@@ -40,8 +40,9 @@ sub _build_router {
 
 sub _build_user {
   my $self = shift;
-  my $twitter_id = $self->env->{"twitter.id"};
-  my $name = $self->env->{"twitter.screen_name"};
+  my $user_info = $self->env->{"twitter.user_info"};
+  my $twitter_id = $user_info->{"id"};
+  my $name       = $user_info->{"screen_name"};
   my $user = Iwai::Service::User->find_by_twitter_id($twitter_id);
   $user //= Iwai::Service::User->create({name => $name, twitter_id => $twitter_id});
   $user;
