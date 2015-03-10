@@ -13,7 +13,7 @@ gulp.task("browserify", function() {
     transform: [reactify]
   });
   bs.bundle()
-    .on("error", function() {})
+    .on("error", function(e) { console.log(e.message) })
     .pipe(plumber())
     .pipe(source("app.js"))
     .pipe(buffer())
