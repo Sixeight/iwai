@@ -55,10 +55,10 @@ sub call {
             token  => $access_token,
           );
           $res->is_success or die;
-          my $user_info = decode_json($res->decoded_content || $res->content);
+          my $user_info_json = decode_json($res->decoded_content || $res->content);
           my $user_info = {
-            screen_name => $user_info->{screen_name},
-            id          => $user_info->{id},
+            screen_name => $user_info_json->{screen_name},
+            id          => $user_info_json->{id},
           };
           $session->set(twitter_user_info => $user_info);
         }
