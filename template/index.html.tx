@@ -1,0 +1,12 @@
+: cascade "layout.html.tx" { title => $c.user ? "祝い - リスト" : "祝い - ログインしてください" }
+
+: override js -> {
+  : if $c.user {
+    <script src="./js/app.js" type="text/javascript"></script>
+  : }
+: }
+: override content -> {
+  : if !$c.user {
+    <a href="./login">ログインしてください</a>
+  : }
+: }
