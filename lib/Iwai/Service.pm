@@ -3,6 +3,7 @@ package Iwai::Service;
 use strict;
 use warnings;
 
+use Plack::Util;
 use DBIx::Sunny;
 
 use Iwai::Config;
@@ -30,7 +31,9 @@ sub model_name {
   my @parts = split "::", $class;
   my $name = pop @parts;
   pop @parts;
-  join "::", @parts, "Model", $name;
+  my $model_name = join "::", @parts, "Model", $name;
+  Plack::Util::load_class($model_name);
+  $model_name;
 }
 
 sub table_name {
