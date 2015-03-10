@@ -11,9 +11,11 @@ CREATE INDEX users_twitter_id_index ON users (twitter_id);
 
 CREATE TABLE IF NOT EXISTS wishlists (
   id      SERIAL PRIMARY KEY,
-  url     VARCHAR(64) NOT NULL UNIQUE,
+  url     VARCHAR(64) NOT NULL,
   title   VARCHAR(64) NOT NULL,
-  memo    VARCHAR(255),
+  name    VARCHAR(32),
+  birth   VARCHAR(12),
+  description VARCHAR(255),
   user_id INT NOT NULL,
 
   created_at TIMESTAMP NOT NULL,
