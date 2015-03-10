@@ -98,7 +98,15 @@ var App = React.createClass({
       });
     }.bind(this));
     Store.on("error", function(errorMsg) {
+      var list = this.state.wishlists;
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].title == "読み込み中") {
+          list.splice(i, 1);
+          break;
+        }
+      }
       this.setState({
+        wishlists: list,
         error: errorMsg
       });
     }.bind(this));
@@ -110,7 +118,8 @@ var App = React.createClass({
       var list = this.state.wishlists;
       list.unshift({url: "#", title: "読み込み中"});
       this.setState({
-        wishlists: list
+        wishlists: list,
+        error: ""
       });
     }.bind(this));
     updateList();
