@@ -27,12 +27,11 @@ var Form = React.createClass({
   },
   render: function() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} value={this.state.url} placeholder="Wishlist の URL" />
-          <input type="submit" />
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <div className="form-group">
+          <input type="url" onChange={this.handleChange} className="form-control" value={this.state.url} placeholder="ほしいものリストのURL" />
+        </div>
+      </form>
     )
   },
 });
@@ -40,12 +39,47 @@ var Form = React.createClass({
 var List = React.createClass({
   render: function() {
     return (
-      <ul>
-        {this.props.wishlists.map(function(list) {
-          return <li><a href={list.url} target="_blank">{list.title}</a>: {list.name} {list.desc} {list.birth}</li>
-        })}
-      </ul>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>名前</th>
+            <th>説明</th>
+            <th>誕生日</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.wishlists.map(function(list) {
+            return (
+              <tr>
+                <td><a href={list.url} target="_blank">{list.title}</a></td>
+                <td>{list.name}</td>
+                <td>{list.desc}</td>
+                <td>{list.birth}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     );
+  },
+});
+
+var Error = React.createClass({
+  render: function() {
+    var error = "";
+    if (this.props.error != "") {
+      error = (
+        <div className="error">
+          <p className="bg-danger">{this.props.error}</p>
+        </div>
+      );
+    }
+    return (
+      <div>
+        {error}
+      </div>
+    )
   },
 });
 
@@ -84,10 +118,7 @@ var App = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Iwai</h1>
-        <div className="error">
-          {this.state.error}
-        </div>
+        <Error error={this.state.error} />
         <Form />
         <List wishlists={this.state.wishlists} />
       </div>

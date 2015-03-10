@@ -7,6 +7,9 @@
 : }
 : override content -> {
   : if !$c.user {
-    <a href="./login">ログインしてください</a>
+    <div class="login">
+      <h3>利用するにはログインが必要です。</h3>
+      <a class="btn btn-primary btn-lg btn-block" href="./login">ログイン</a>
+    </div>
   : }
 : }
