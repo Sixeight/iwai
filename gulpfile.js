@@ -26,10 +26,4 @@ gulp.task("watch", function() {
   gulp.watch("src/*.jsx", ["browserify"]);
 });
 
-gulp.task('compress', function() {
-  gulp.src('lib/*.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'))
-});
-
 gulp.task("default", ["browserify"]);
