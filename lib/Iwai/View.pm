@@ -24,6 +24,6 @@ sub render_html {
   if ($name !~ qr/\.html\.tx$/) {
     $name .= ".html.tx";
   }
-  my $vars = (c => $self->{c},  @_);
-  encode_utf8 $tx->render($name, {$vars});
+  my $vars = {c => $self->{c},  @_};
+  encode_utf8 $tx->render($name, $vars);
 }
