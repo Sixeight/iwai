@@ -16,7 +16,7 @@ use warnings;
 
 
 use Class::Accessor::Lite::Lazy (
-  ro      => [qw( id url title memo )],
+  ro      => [qw( id url title name birth description )],
   ro_lazy => [qw( created_at updated_at )],
   new     => 1,
 );
@@ -43,7 +43,9 @@ sub to_hash_ref {
     id         => $self->id,
     url        => $self->url,
     title      => $self->title,
-    memo       => $self->memo,
+    name       => $self->name,
+    birth      => $self->birth,
+    desc       => $self->description,
     created_at => $self->{created_at},
     updated_at => $self->{updated_at},
   }
