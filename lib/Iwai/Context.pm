@@ -41,7 +41,7 @@ sub _build_router {
 sub _build_user {
   my $self = shift;
   my $user_info = $self->env->{"twitter.user_info"};
-  return undef if scalar(%$user_info) == 0;
+  $user_info or return undef;
   my $twitter_id = $user_info->{"id"};
   my $name       = $user_info->{"screen_name"};
   my $user = Iwai::Service::User->find_by_twitter_id($twitter_id);

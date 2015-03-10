@@ -87,7 +87,7 @@ sub call {
     }
   };
 
-  my $user_info = ($session->get("twitter_user_info") || {});
+  my $user_info = $session->get("twitter_user_info");
   $env->{"twitter.user_info"} = $user_info;
   ($handlers->{$env->{PATH_INFO}} || $self->app)->($env);
 }
