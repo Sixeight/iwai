@@ -7,7 +7,7 @@ our $VERSION   = "0.0.1";
 
 use parent "Plack::Middleware";
 
-use Plack::Util::Accessor qw( consumer_key consumer_secret consumer login_path );
+use Plack::Util::Accessor qw( consumer_key consumer_secret consumer login_path logout_path );
 
 use Plack::Session;
 use Plack::Request;
@@ -76,6 +76,15 @@ sub call {
       }
       $response->finalize;
     },
+
+    $self->logout_path => sub {
+      my $env = shift;
+      my $request = Plack::Request->new($env);
+      my $response = $request->new_response(200);
+      $session->remove("twitter_user_info");
+      $response->redirect("/");
+      $response->finalize;
+    }
   };
 
   my $user_info = ($session->get("twitter_user_info") || {});

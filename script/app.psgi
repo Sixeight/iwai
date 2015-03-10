@@ -30,6 +30,7 @@ builder {
     consumer_key    => "R3Wx7PhmdtojJYL4nRyETW9bw",
     consumer_secret => "YsAf1TRdcQu2vLhRkExCXoBhBFJoO3jgg3IA7tCmAEIArWP1t3",
     login_path      => "/login",
+    logout_path     => "/logout"
   );
   $app;
 };
