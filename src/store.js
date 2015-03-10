@@ -16,7 +16,7 @@ var Store = {
         if (res.ok) {
           store.dispatch("fetch", res.body);
         } else {
-          store.dispatch("error", "Failed to fetch wishlists.");
+          store.dispatch("error", "ほしいものリストの取得に失敗しました");
         }
       });
   },
@@ -31,7 +31,7 @@ var Store = {
         if (res.ok) {
           store.dispatch("change");
         } else {
-          store.dispatch("error", "Failed to add wishlist: " + url);
+          store.dispatch("error", "ほしいものリストの追加に失敗しました: " + url);
         }
       });
   },
