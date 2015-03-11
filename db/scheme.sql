@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS wishlists (
   url     VARCHAR(64) NOT NULL,
   title   VARCHAR(64) NOT NULL,
   name    VARCHAR(32),
-  birth   VARCHAR(12),
+  birth   DATE,
   description VARCHAR(255),
 
   created_at TIMESTAMP NOT NULL,
