@@ -27,8 +27,8 @@ builder {
   );
   enable "Session::Cookie", secret => "sakura";
   enable "TwitterOAuth", (
-    consumer_key    => "R3Wx7PhmdtojJYL4nRyETW9bw",
-    consumer_secret => "YsAf1TRdcQu2vLhRkExCXoBhBFJoO3jgg3IA7tCmAEIArWP1t3",
+    consumer_key    => $ENV{CONSUMER_KEY},
+    consumer_secret => $ENV{CONSUMER_SECRET},
     login_path      => "/login",
     logout_path     => "/logout"
   );
