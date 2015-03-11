@@ -18,7 +18,7 @@ sub create {
 
 sub find_by_twitter_id {
   my ($class, $twitter_id) = @_;
-  my $ret = $class->dbh->select_row("SELECT * FROM users WHERE twitter_id = ?", $twitter_id);
+  my $ret = $class->dbh->select_row("SELECT * FROM users WHERE twitter_id = ? LIMIT 1", $twitter_id);
   $ret ? $class->model_name->new($ret) : undef;
 }
 
