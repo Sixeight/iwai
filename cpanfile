@@ -4,6 +4,7 @@ requires "Class::Accessor::Lite";
 requires "Class::Accessor::Lite::Lazy";
 requires "Config::ENV";
 requires "DBIx::Sunny";
+requires "DBD::Pg";
 requires "DateTime::Format::Pg";
 requires "DateTime";
 requires "Encode";
