@@ -9,9 +9,9 @@ sub create {
   my ($class, $params) = @_;
   my $url        = $params->{url};
   my $title      = $params->{title};
-  my $name       = $params->{name};
-  my $birth      = $params->{birth};
-  my $desc       = $params->{desc};
+  my $name       = $params->{name}  || undef;
+  my $birth      = $params->{birth} || undef;
+  my $desc       = $params->{desc}  || undef;
   my $created_at = Iwai::Util->now;
   my $updated_at = Iwai::Util->now;
   my $sql = <<EOS
