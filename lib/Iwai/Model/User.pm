@@ -12,15 +12,14 @@ use warnings;
 # /* CREATE INDEX has no IF NOT EXISTS */
 # CREATE INDEX users_twitter_id_index ON users (twitter_id);
 
-use Class::Accessor::Lite::Lazy (
+use Class::Accessor::Lite (
   ro      => [qw( id name twitter_id )],
-  ro_lazy => [qw( joined_at )],
   new     => 1
 );
 
 use Iwai::Util;
 
-sub _build_joined_at {
+sub joined_at {
   my $self = shift;
   $self->{_joined_at} ||= eval {
     Iwai::Util->time_from_string($self->{joined_at});
@@ -32,7 +31,7 @@ sub to_hash_ref {
   {
     id        => $self->id,
     name      => $self->name,
-    joined_at => $self->joined_at,
+    joined_at => $self->{joined_at},
   }
 }
 

@@ -14,23 +14,21 @@ use warnings;
 # /* CREATE INDEX has no IF NOT EXISTS */
 # CREATE INDEX wishlists_user_id_index ON wishlists (user_id);
 
-
-use Class::Accessor::Lite::Lazy (
-  ro      => [qw( id url title name birth description )],
-  ro_lazy => [qw( created_at updated_at )],
+use Class::Accessor::Lite (
+  ro      => [qw( id url title name description birth )],
   new     => 1,
 );
 
 use Iwai::Util;
 
-sub _build_created_at {
+sub created_at {
   my $self = shift;
   $self->{_created_at} ||= eval {
     Iwai::Util->time_from_string($self->{created_at});
   };
 }
 
-sub _build_updated_at {
+sub updated_at {
   my $self = shift;
   $self->{_updated_at} ||= eval {
     Iwai::Util->time_from_string($self->{updated_at});
