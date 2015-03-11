@@ -17,7 +17,7 @@ var List = React.createClass({
   },
   render: function() {
     var wishlists = this.props.wishlists;
-    var search = this.props.search;
+    var search = this.props.search.toLowerCase();
     if (search.length > 0 && !search.match("^http")) {
       wishlists = wishlists.filter(function(list) {
         return list.name.toLowerCase().match(search) ||
