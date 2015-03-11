@@ -8,11 +8,10 @@ var plumber = require("gulp-plumber");
 var uglify = require('gulp-uglify');
 
 gulp.task("browserify", function() {
-  var bs = browserify({
-    entries: ["./src/main.js"],
-    transform: [reactify]
-  });
-  bs.bundle()
+  browserify()
+    .transform(reactify)
+    .require("./src/main.js", {entry: true})
+    .bundle()
     .on("error", function(e) { console.log(e.message) })
     .pipe(plumber())
     .pipe(source("app.js"))
