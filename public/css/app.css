@@ -14,3 +14,16 @@ body { padding-top: 30px }
   background-color: #f8f8f8;
   border: 1px solid #e7e7e7;
 }
+
+table .action {
+  width: 48px;
+}
+table .action > a {
+  color: #a94442;
+  text-decoration: none;
+}
+table .action > a:active {
+  position: relative;
+  top: 2px;
+  left: 1px;
+}

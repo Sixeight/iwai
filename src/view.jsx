@@ -39,6 +39,11 @@ var Form = React.createClass({
 });
 
 var List = React.createClass({
+  handleClick: function(e) {
+    if (confirm("本当に削除しますか？")) {
+      Store.remove(e.target.dataset.listId);
+    }
+  },
   render: function() {
     var wishlists = this.props.wishlists;
     var search = this.props.search;
@@ -56,6 +61,7 @@ var List = React.createClass({
             <th>名前</th>
             <th>説明</th>
             <th>誕生日</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -66,9 +72,12 @@ var List = React.createClass({
                 <td>{list.name}</td>
                 <td>{list.desc}</td>
                 <td>{list.birth}</td>
+                <td className="action">
+                  <a onClick={this.handleClick} data-list-id={list.id} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
+                </td>
               </tr>
             );
-          })}
+          }.bind(this))}
         </tbody>
       </table>
     );
@@ -131,6 +140,14 @@ var App = React.createClass({
       this.setState({
         wishlists: list,
         error: ""
+      });
+    }.bind(this));
+    Store.on("removing", function(id) {
+      var list = this.state.wishlists.filter(function(list) {
+        return list.id != id
+      });
+      this.setState({
+        wishlists: list
       });
     }.bind(this));
     updateList();

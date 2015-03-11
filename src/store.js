@@ -7,6 +7,8 @@ var Store = {
     change: [],
     fetch:  [],
     error:  [],
+    removing: [],
+    remove: [],
   },
   fetchAll: function() {
     var store = this;
@@ -32,6 +34,22 @@ var Store = {
           store.dispatch("change");
         } else {
           store.dispatch("error", "ほしいものリストの追加に失敗しました: " + url);
+        }
+      });
+  },
+  remove: function(id) {
+    var store = this;
+    store.dispatch("removing", id);
+    superagent
+      .post("/remove")
+      .type("form")
+      .send({id: id})
+      .end(function(err, res) {
+        if (res.ok) {
+          store.dispatch("remove", id);
+        } else {
+          store.dispatch("chane");
+          store.dispatch("error", "削除に失敗しました");
         }
       });
   },
