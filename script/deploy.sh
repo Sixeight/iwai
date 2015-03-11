@@ -7,6 +7,7 @@ if [ ! -f config/database.yml ]; then
   echo "create database.yml"
   cp config/{_,}database.yml
 fi
+npm install
 if [ ! -f public/js/app.js ]; then
   gulp browserify
 fi
