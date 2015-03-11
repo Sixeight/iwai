@@ -48,7 +48,7 @@ var Store = {
         if (res.ok) {
           store.dispatch("remove", id);
         } else {
-          store.dispatch("chane");
+          store.dispatch("change");
           store.dispatch("error", "削除に失敗しました");
         }
       });
