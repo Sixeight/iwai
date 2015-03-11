@@ -4,7 +4,7 @@ var Store = require("./store.js")
 var List = React.createClass({
   handleClick: function(e) {
     if (confirm("本当に削除しますか？")) {
-      Store.remove(e.target.dataset.listId);
+      Store.remove(e.target.parentNode.parentNode.dataset.listId);
     }
   },
   render: function() {
@@ -30,13 +30,13 @@ var List = React.createClass({
         <tbody>
           {wishlists.map(function(list) {
             return (
-              <tr>
+              <tr data-list-id={list.id}>
                 <td><a href={list.url} target="_blank">{list.title}</a></td>
                 <td>{list.name}</td>
                 <td>{list.desc}</td>
                 <td>{list.birth}</td>
                 <td className="action">
-                  <a onClick={this.handleClick} data-list-id={list.id} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
+                  <a onClick={this.handleClick} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
                 </td>
               </tr>
             );
