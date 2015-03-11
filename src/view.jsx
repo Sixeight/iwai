@@ -6,6 +6,7 @@ var List  = require("./list.jsx")
 var Error = require("./error.jsx")
 
 var App = React.createClass({
+  timer: null,
   getInitialState: function() {
     return {
       wishlists: [],
@@ -38,7 +39,8 @@ var App = React.createClass({
       wishlists: list,
       error: errorMsg
     });
-    setTimeout(function() {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(function() {
       this.setState({
         error: ""
       });
