@@ -9,6 +9,7 @@ var Store = {
     error:  [],
     removing: [],
     remove: [],
+    check: [],
   },
   fetchAll: function() {
     var store = this;
@@ -50,6 +51,21 @@ var Store = {
         } else {
           store.dispatch("change");
           store.dispatch("error", "削除に失敗しました");
+        }
+      });
+  },
+  check: function(id, checked, errorCallback) {
+    var store = this;
+    superagent
+      .post("/check")
+      .type("form")
+      .send({id: id, checked: checked})
+      .end(function(err, res) {
+        if (res.ok) {
+          store.dispatch("check", id);
+        } else {
+          errorCallback();
+          store.dispatch("error", "マークをつけられませんでした");
         }
       });
   },

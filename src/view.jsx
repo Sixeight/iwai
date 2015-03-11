@@ -20,6 +20,7 @@ var App = React.createClass({
     Store.on("change", this.changeCallback);
     Store.on("adding", this.addingCallback);
     Store.on("removing", this.removingCallback);
+    Store.on("check", this.checkCallback);
     Store.fetchAll();
   },
   fetchCalback: function(list) {
@@ -62,6 +63,17 @@ var App = React.createClass({
     });
     this.setState({
       wishlists: list
+    });
+  },
+  checkCallback: function(id) {
+    var list = this.state.wishlists.map(function(list) {
+      if (list.id == id) {
+        list.checked = !list.checked;
+      }
+      return list;
+    });
+    this.setState({
+      wishlist: list
     });
   },
   handleSearch: function(word) {

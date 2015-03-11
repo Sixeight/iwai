@@ -7,6 +7,14 @@ var List = React.createClass({
       Store.remove(e.target.parentNode.parentNode.dataset.listId);
     }
   },
+  handleCheck: function(e) {
+    var target = e.target;
+    var checked = target.checked ? 1 : 0;
+    var id = target.parentNode.parentNode.dataset.listId;
+    Store.check(id, checked, function() {
+      target.checked = checked == 1 ? false : true;
+    });
+  },
   render: function() {
     var wishlists = this.props.wishlists;
     var search = this.props.search;
@@ -20,6 +28,7 @@ var List = React.createClass({
       <table className="table table-striped">
         <thead>
           <tr>
+            <th><span className="glyphicon glyphicon-ok" aria-hidden="true"></span></th>
             <th>タイトル</th>
             <th>名前</th>
             <th>説明</th>
@@ -31,6 +40,9 @@ var List = React.createClass({
           {wishlists.map(function(list) {
             return (
               <tr data-list-id={list.id}>
+                <td>
+                  <input type="checkbox" checked={list.checked} onChange={this.handleCheck} />
+                </td>
                 <td><a href={list.url} target="_blank">{list.title}</a></td>
                 <td>{list.name}</td>
                 <td>{list.desc}</td>
