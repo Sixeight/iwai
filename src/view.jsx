@@ -114,7 +114,6 @@ var App = React.createClass({
     Store.on("fetch", function(list) {
       this.setState({
         wishlists: list,
-        error: "",
       });
     }.bind(this));
     Store.on("error", function(errorMsg) {
@@ -129,6 +128,11 @@ var App = React.createClass({
         wishlists: list,
         error: errorMsg
       });
+      setTimeout(function() {
+        this.setState({
+          error: ""
+        });
+      }.bind(this), 3000);
     }.bind(this));
     var updateList = function() {
       Store.fetchAll();
@@ -139,7 +143,6 @@ var App = React.createClass({
       list.push({url: "#", title: "読み込み中"});
       this.setState({
         wishlists: list,
-        error: ""
       });
     }.bind(this));
     Store.on("removing", function(id) {
