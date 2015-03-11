@@ -17,9 +17,11 @@ use utf8;
 # );
 
 use Class::Accessor::Lite (
-  ro      => [qw( id url title name description )],
+  ro      => [qw( id url title name description checked )],
   new     => 1,
 );
+
+use JSON::Types ();
 
 use Iwai::Util;
 
@@ -53,6 +55,7 @@ sub to_hash_ref {
     name       => $self->name,
     birth      => $self->birth->strftime("%m月%d日"),
     desc       => $self->description,
+    checked    => JSON::Types::bool $self->checked,
     created_at => $self->{created_at},
     updated_at => $self->{updated_at},
   }
