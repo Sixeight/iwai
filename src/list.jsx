@@ -21,7 +21,9 @@ var List = React.createClass({
     if (search.length > 0 && !search.match("^http")) {
       wishlists = wishlists.filter(function(list) {
         return list.name.toLowerCase().match(search) ||
-          list.title.toLowerCase().match(search);
+          list.title.toLowerCase().match(search)     ||
+          list.desc.toLowerCase().match(search)      ||
+          list.birth.match(search);
       });
     }
     return (
