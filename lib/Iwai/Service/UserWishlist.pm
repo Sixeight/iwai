@@ -42,6 +42,7 @@ sub all_wishlists_by_user_id {
       FROM users_wishlists as map
       JOIN wishlists as list ON map.wishlist_id = list.id
       WHERE map.user_id = ?
+      ORDER BY list.birth ASC
 EOS
 ;
   my $wishlists = $class->dbh->select_all($sql, $user_id);
