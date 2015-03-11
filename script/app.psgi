@@ -25,7 +25,7 @@ builder {
     response_time => 1,
     logger        => sub { $logger->print(@_) },
   );
-  enable "Session::Cookie", secret => "sakura";
+  enable "Session::Cookie", secret => $ENV{COOKIE_SECRET};
   enable "TwitterOAuth", (
     consumer_key    => $ENV{CONSUMER_KEY},
     consumer_secret => $ENV{CONSUMER_SECRET},
