@@ -127,7 +127,7 @@ var App = React.createClass({
     Store.on("change", updateList);
     Store.on("adding", function() {
       var list = this.state.wishlists;
-      list.unshift({url: "#", title: "読み込み中"});
+      list.push({url: "#", title: "読み込み中"});
       this.setState({
         wishlists: list,
         error: ""
