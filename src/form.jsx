@@ -13,6 +13,9 @@ var Form = React.createClass({
     if (this.state.url == "") {
       return;
     }
+    if (!this.state.url.match("^http.+/wishlist/.+")) {
+      return;
+    }
     Store.create(this.state.url);
     this.setState({
       url: "",
