@@ -37,6 +37,10 @@ sub create {
   my $params = $c->request->parameters;
   my $url = $params->{url};
   $url =~ s/^https/http/;
+  $url = [split(q{\?}, $url, 2)]->[0];
+  $url =~ m{wishlist/([^/]+)};
+  my $id = $1 or die Iwai::Error->new(code => 400);
+  $url = "http://www.amazon.co.jp/wishlist/" . $id;
 
   my $wishlist = Iwai::Service::Wishlist->find_by_url($url);
   unless ($wishlist) {
