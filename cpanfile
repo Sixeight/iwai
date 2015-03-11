@@ -1,6 +1,7 @@
 requires "perl", "5.010001";
 
 requires "Class::Accessor::Lite";
+requires "Class::Accessor::Lite::Lazy";
 requires "Config::ENV";
 requires "DBIx::Sunny";
 requires "DateTime::Format::Pg";
