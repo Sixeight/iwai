@@ -15,6 +15,10 @@ body { padding-top: 30px }
   border: 1px solid #e7e7e7;
 }
 
+table strong {
+  color: #a94442;
+}
+
 table .action {
   width: 48px;
 }

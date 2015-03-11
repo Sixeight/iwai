@@ -32,6 +32,14 @@ sub birth {
   };
 }
 
+sub birth_remain_days {
+  my $self = shift;
+  my $now = Iwai::Util->now;
+  my $birth = $self->birth->set(year => $now->year);
+  my $d = $birth->delta_days($now);
+  ($now < $birth) ? $d->delta_days : 365 - $d->delta_days;
+}
+
 sub created_at {
   my $self = shift;
   $self->{_created_at} ||= eval {
@@ -54,6 +62,7 @@ sub to_hash_ref {
     title      => $self->title,
     name       => $self->name,
     birth      => $self->birth->strftime("%m月%d日"),
+    birth_rd   => $self->birth_remain_days,
     desc       => $self->description,
     checked    => JSON::Types::bool $self->checked,
     created_at => $self->{created_at},

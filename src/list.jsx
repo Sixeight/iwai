@@ -38,6 +38,10 @@ var List = React.createClass({
         </thead>
         <tbody>
           {wishlists.map(function(list) {
+            var remain = "";
+            if (list.birth_rd < 10) {
+              remain = " (" + list.birth_rd +  "日後)";
+            }
             return (
               <tr data-list-id={list.id}>
                 <td>
@@ -46,7 +50,7 @@ var List = React.createClass({
                 <td><a href={list.url} target="_blank">{list.title}</a></td>
                 <td>{list.name}</td>
                 <td>{list.desc}</td>
-                <td>{list.birth}</td>
+                <td>{list.birth}<strong>{remain}</strong></td>
                 <td className="action">
                   <a onClick={this.handleClick} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
                 </td>
