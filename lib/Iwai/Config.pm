@@ -62,4 +62,9 @@ config production => +{
     %{$db_yaml->{production}},
   }
 };
+
+config deployment => +{
+  parent("production"),
+};
+
 1;
