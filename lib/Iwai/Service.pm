@@ -23,7 +23,7 @@ sub dbh {
         RaiseError => 1,
       }
     );
-  };
+  } or die "Cannot connect databse server: $@";
 }
 
 sub model_name {
