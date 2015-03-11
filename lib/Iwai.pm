@@ -21,6 +21,7 @@ sub as_psgi {
 sub run {
   my ($class, $env) = @_;
   my $context = Iwai::Context->new($env);
+  $context->user; # load user
   try {
     my $match = $context->router->match($env);
     $match or die Iwai::Error->new(code => 404);
