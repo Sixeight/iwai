@@ -8,12 +8,19 @@ use File::RotateLogs;
 use Iwai;
 
 my $app = Iwai->as_psgi;
-my $logger = File::RotateLogs->new(
+my $rotate_logger = File::RotateLogs->new(
   logfile      => "log/access.log.%Y%m%d%H%M",
   linkname     => "log/access.log",
   rotationtime => 86400, # 1day
   maxage       => 691200, # 1week + 1day
 );
+
+my $logger = sub { $rotate_logger->print(@_) };
+
+# For heroku
+if ($ENV{PLACK_ENV} eq "deployment") {
+  $logger = sub { print STDOUT @_ };
+}
 
 builder {
   enable "Static", (
@@ -23,7 +30,7 @@ builder {
   enable "AxsLog", (
     ltsv          => 1,
     response_time => 1,
-    logger        => sub { $logger->print(@_) },
+    logger        => $logger,
   );
   enable "Session::Cookie", secret => $ENV{COOKIE_SECRET};
   enable "TwitterOAuth", (
