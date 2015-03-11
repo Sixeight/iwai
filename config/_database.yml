@@ -2,13 +2,13 @@
 
 test:
   dsn: "dbi:Pg:dbname=iwai_test;host=localhost"
-  user: "user"
-  pass: "pass"
+  user: ""
+  pass: ""
 
 development:
     dsn: "dbi:Pg:dbname=iwai_development;host=localhost"
-    user: "user"
-    pass: "pass"
+    user: ""
+    pass: ""
 
 production:
   dsn:  "<: ENV("DB_DSN")  :>"
