@@ -2,6 +2,7 @@ package Iwai::Model::Wishlist;
 
 use strict;
 use warnings;
+use utf8;
 
 # CREATE TABLE IF NOT EXISTS wishlists (
 #   id    SERIAL PRIMARY KEY,
@@ -15,11 +16,18 @@ use warnings;
 # CREATE INDEX wishlists_user_id_index ON wishlists (user_id);
 
 use Class::Accessor::Lite (
-  ro      => [qw( id url title name description birth )],
+  ro      => [qw( id url title name description )],
   new     => 1,
 );
 
 use Iwai::Util;
+
+sub birth {
+  my $self = shift;
+  $self->{_birth} ||= eval {
+    Iwai::Util->time_from_string($self->{birth});
+  };
+}
 
 sub created_at {
   my $self = shift;
@@ -42,7 +50,7 @@ sub to_hash_ref {
     url        => $self->url,
     title      => $self->title,
     name       => $self->name,
-    birth      => $self->birth,
+    birth      => $self->birth->strftime("%m月%d日"),
     desc       => $self->description,
     created_at => $self->{created_at},
     updated_at => $self->{updated_at},

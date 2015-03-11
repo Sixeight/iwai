@@ -2,11 +2,13 @@ package Iwai::Controller::List;
 
 use strict;
 use warnings;
+use utf8;
 
 use Iwai::Service::Wishlist;
 use Iwai::Service::UserWishlist;
 use Iwai::Util::ListInfoFetcher;
 use Iwai::Error;
+use Iwai::Util;
 
 sub index {
   my ($class, $c) = @_;
@@ -26,12 +28,11 @@ sub create {
   $url =~ s/^https/http/;
 
   my $wishlist = Iwai::Service::Wishlist->find_by_url($url);
-  my $list_id;
-  $wishlist //= eval {
+  unless ($wishlist) {
     # FIXME: I wanna fech last_insert_id
     $class->create_wish_list($url);
-    Iwai::Service::Wishlist->find_by_url($url);
-  };
+    $wishlist = Iwai::Service::Wishlist->find_by_url($url);
+  }
   Iwai::Service::UserWishlist->create($c->user->id, $wishlist->id);
   $c->render_text("ok");
 }
@@ -57,6 +58,11 @@ sub create_wish_list {
   my $birth = $info->{birth};
   my $desc  = $info->{desc};
   $title = [split(":", $title)]->[-1];
+  if ($birth) {
+    my $ptn = q[(\d{1,2})月 (\d{1,2})日];
+    $birth =~ m/$ptn/;
+    $birth = Iwai::Util->time_from_string(sprintf("1970-%02d-%02d", $1, $2));
+  }
   Iwai::Service::Wishlist->create({
     url     => $url,
     title   => $title,
