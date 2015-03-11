@@ -15,6 +15,7 @@ requires "HTTP::Status";
 requires "JSON::Types";
 requires "JSON::XS";
 requires "LWP::UserAgent";
+requires "LWP::Protocol::https";
 requires "OAuth::Lite::Consumer";
 requires "Path::Class";
 requires "Plack::Builder";
