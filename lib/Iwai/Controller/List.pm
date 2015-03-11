@@ -27,13 +27,12 @@ sub create {
 
   my $wishlist = Iwai::Service::Wishlist->find_by_url($url);
   my $list_id;
-  if ($wishlist) {
-    $list_id = $wishlist->id;
-  } else {
+  $wishlist //= eval {
+    # FIXME: I wanna fech last_insert_id
     $class->create_wish_list($url);
-    $list_id = Iwai::Service::Wishlist->last_insert_id;
-  }
-  Iwai::Service::UserWishlist->create($c->user->id, $list_id);
+    Iwai::Service::Wishlist->find_by_url($url);
+  };
+  Iwai::Service::UserWishlist->create($c->user->id, $wishlist->id);
   $c->render_text("ok");
 }
 

@@ -26,15 +26,6 @@ sub dbh {
   };
 }
 
-sub last_insert_id {
-  my $class = shift;
-  my $last_insert_id;
-  eval {
-    $last_insert_id = $class->dbh->query("SELECT LastVal()");
-  };
-  $@ ? undef : $last_insert_id;
-}
-
 sub model_name {
   my $class = shift;
   my @parts = split "::", $class;
