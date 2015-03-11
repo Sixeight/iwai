@@ -44,7 +44,10 @@ sub update {
 
 sub delete {
   my ($class, $c) = @_;
-  $c->render_text("remove");
+  my $params = $c->request->parameters;
+  my $id = $params->{id};
+  Iwai::Service::UserWishlist->remove($id);
+  $c->render_text("ok");
 }
 
 sub create_wish_list {

@@ -15,6 +15,12 @@ sub create {
   $class->dbh->query($sql, $user_id, $list_id, $created_at);
 }
 
+sub remove {
+  my ($class, $id) = @_;
+  my $sql = "DELETE FROM users_wishlists WHERE id = ?";
+  $class->dbh->query($sql, $id);
+}
+
 sub exists_by_user_id_and_list_id {
   my $class = shift;
   my ($user_id, $list_id) = @_;
