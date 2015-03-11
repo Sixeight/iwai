@@ -1,0 +1,26 @@
+requires "perl", "5.010001";
+
+requires "Class::Accessor::Lite";
+requires "Config::ENV";
+requires "DBIx::Sunny";
+requires "DateTime::Format::Pg";
+requires "DateTime";
+requires "Encode";
+requires "File::RotateLogs";
+requires "HTML::Selector::XPath";
+requires "HTML::TreeBuilder::XPath";
+requires "HTTP::Status";
+requires "JSON::Types";
+requires "JSON::XS";
+requires "LWP::UserAgent";
+requires "OAuth::Lite::Consumer";
+requires "Path::Class";
+requires "Plack::Builder";
+requires "Plack::Request";
+requires "Plack::Session";
+requires "Plack::Util::Accessor";
+requires "Plack::Util";
+requires "Router::Simple::Declare";
+requires "Text::Xslate";
+requires "Try::Tiny";
+requires "YAML::XS";
