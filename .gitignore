@@ -20,7 +20,7 @@ nytprof.out
 *.o
 *.bs
 /_eumm/
-/log
+log/*.log*
 /config/database.yml
 /*.pl
 
