@@ -6,8 +6,18 @@ CREATE TABLE IF NOT EXISTS users (
 
   joined_at TIMESTAMP NOT NULL
 );
-/* CREATE INDEX has no IF NOT EXISTS */
 CREATE INDEX users_twitter_id_index ON users (twitter_id);
+
+CREATE TABLE IF NOT EXISTS users_wishlists (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL,
+  wishlist_id INT NOT NULL,
+
+  created_at TIMESTAMP NOT NULL,
+
+  UNIQUE (user_id, wishlist_id)
+);
+CREATE INDEX user_id_users_wishlists_index ON users_wishlists (user_id);
 
 CREATE TABLE IF NOT EXISTS wishlists (
   id      SERIAL PRIMARY KEY,
@@ -16,10 +26,7 @@ CREATE TABLE IF NOT EXISTS wishlists (
   name    VARCHAR(32),
   birth   VARCHAR(12),
   description VARCHAR(255),
-  user_id INT NOT NULL,
 
   created_at TIMESTAMP NOT NULL,
   updated_at  TIMESTAMP NOT NULL
 );
-/* CREATE INDEX has no IF NOT EXISTS */
-CREATE INDEX wishlists_user_id_index ON wishlists (user_id);
