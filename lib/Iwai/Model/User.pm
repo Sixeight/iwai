@@ -7,9 +7,9 @@ use warnings;
 #   id         SERIAL PRIMARY KEY,
 #   name       VARCHAR(32) NOT NULL UNIQUE,
 #   twitter_id INT NOT NULL UNIQUE,
+#
 #   joined_at TIMESTAMP NOT NULL
 # );
-# /* CREATE INDEX has no IF NOT EXISTS */
 # CREATE INDEX users_twitter_id_index ON users (twitter_id);
 
 use Class::Accessor::Lite (

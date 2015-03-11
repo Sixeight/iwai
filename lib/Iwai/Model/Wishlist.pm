@@ -5,15 +5,16 @@ use warnings;
 use utf8;
 
 # CREATE TABLE IF NOT EXISTS wishlists (
-#   id    SERIAL PRIMARY KEY,
-#   url   VARCHAR(64) NOT NULL UNIQUE,
-#   title VARCHAR(64) NOT NULL,
-#   memo  VARCHAR(255),
+#   id      SERIAL PRIMARY KEY,
+#   url     VARCHAR(64) NOT NULL,
+#   title   VARCHAR(64) NOT NULL,
+#   name    VARCHAR(32),
+#   birth   DATE,
+#   description VARCHAR(255),
+#
 #   created_at TIMESTAMP NOT NULL,
-#   updatd_at TIMESTAMP NOT NULL
+#   updated_at  TIMESTAMP NOT NULL
 # );
-# /* CREATE INDEX has no IF NOT EXISTS */
-# CREATE INDEX wishlists_user_id_index ON wishlists (user_id);
 
 use Class::Accessor::Lite (
   ro      => [qw( id url title name description )],
