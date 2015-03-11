@@ -1,4 +1,5 @@
 var React = require("react");
+var Store = require("./store.js");
 
 var Form = React.createClass({
   getInitialState: function() {
