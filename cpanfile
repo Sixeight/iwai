@@ -25,3 +25,6 @@ requires "Router::Simple::Declare";
 requires "Text::Xslate";
 requires "Try::Tiny";
 requires "YAML::XS";
+requires "Plack::Middleware::Session::Cookie";
+requires "Plack::Middleware::Static";
+requires "Plack::Middleware::AxsLog";
