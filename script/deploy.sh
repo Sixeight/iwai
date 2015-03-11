@@ -8,8 +8,6 @@ if [ ! -f config/database.yml ]; then
   cp config/{_,}database.yml
 fi
 npm install
-if [ ! -f public/js/app.js ]; then
-  gulp browserify
-fi
+gulp browserify
 git commit -am "deploy commit"
 git push heroku deploy:master
