@@ -21,6 +21,13 @@ sub remove {
   $class->dbh->query($sql, $id);
 }
 
+sub check {
+  my $class = shift;
+  my ($id, $checked) = @_;
+  my $sql = "UPDATE users_wishlists SET checked = ? WHERE id = ?";
+  $class->dbh->query($sql, $checked, $id);
+}
+
 sub exists_by_user_id_and_list_id {
   my $class = shift;
   my ($user_id, $list_id) = @_;

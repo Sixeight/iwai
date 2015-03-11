@@ -31,9 +31,9 @@ sub mk_router {
       action     => "delete",
     }, { method => "POST" };
 
-    connect "/update" => {
+    connect "/check" => {
       controller => "List",
-      action     => "update",
+      action     => "check",
     }, { method => "POST" };
   };
 }

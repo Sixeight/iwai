@@ -50,6 +50,15 @@ sub delete {
   $c->render_text("ok");
 }
 
+sub check {
+  my ($class, $c) = @_;
+  my $params = $c->request->parameters;
+  my $id = $params->{id};
+  my $checked = $params->{checked};
+  Iwai::Service::UserWishlist->check($id, $checked);
+  $c->render_text("ok");
+}
+
 sub create_wish_list {
   my ($class, $url) = @_;
 
