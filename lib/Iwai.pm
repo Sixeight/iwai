@@ -21,7 +21,6 @@ sub as_psgi {
 sub run {
   my ($class, $env) = @_;
   my $context = Iwai::Context->new($env);
-  $context->user; # load user
   try {
     my $match = $context->router->match($env);
     $match or die Iwai::Error->new(code => 404);
@@ -31,6 +30,10 @@ sub run {
     }
     my $controller = $match->{controller};
     my $action     = $match->{action};
+    my $user = $context->user;
+    unless ($action eq "index") {
+      defined($user) or die Iwai::Error->new(code => 401);
+    }
     $controller = join "::", "Iwai", "Controller", $controller;
     Plack::Util::load_class($controller);
     $controller->$action($context);
