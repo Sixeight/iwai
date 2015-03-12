@@ -31,7 +31,7 @@ sub run {
     my $controller = $match->{controller};
     my $action     = $match->{action};
     my $user = $context->user;
-    unless ($action eq "index") {
+    if ($action ne "index") {
       defined($user) or die Iwai::Error->new(code => 401);
     }
     $controller = join "::", "Iwai", "Controller", $controller;
