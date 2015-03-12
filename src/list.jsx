@@ -23,7 +23,9 @@ var List = React.createClass({
         return (list.name && list.name.toLowerCase().match(search)) ||
           (list.title && list.title.toLowerCase().match(search))    ||
           (list.desc  && list.desc.toLowerCase().match(search))     ||
-          (list.birth && list.birth.match(search));
+          (list.birth && (
+            list.birth.match(search) ||
+            list.birth.split("月").join("/").match(search)));
       });
     }
     return (
