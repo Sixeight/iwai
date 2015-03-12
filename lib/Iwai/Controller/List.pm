@@ -22,7 +22,7 @@ sub json {
   my $next_years = [];
   my $now = Iwai::Util->now->set(year => 1970);
   for my $list (@$lists) {
-    if ($now < $list->birth) {
+    if ($list->birth && $now < $list->birth) {
       push @$this_years, $list;
     } else {
       push @$next_years, $list;
