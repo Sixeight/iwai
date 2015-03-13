@@ -9,7 +9,7 @@
   : if !$c.user {
     <div class="login">
       <h3>利用するにはログインが必要です。</h3>
-      <a class="btn btn-primary btn-lg btn-block" href="./login">ログイン</a>
+      <a class="btn btn-primary btn-lg btn-block" href="/login?location=<: $c.env["PATH_INFO"] :>">ログイン</a>
     </div>
   : }
 : }
