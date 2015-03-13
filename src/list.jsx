@@ -2,7 +2,10 @@ var React = require("react");
 var Store = require("./store.js")
 
 var List = React.createClass({
-  handleClick: function(e) {
+  handleAddClick: function(e) {
+    alert("追加！");
+  },
+  handleRemoveClick: function(e) {
     if (confirm("本当に削除しますか？")) {
       Store.remove(e.target.parentNode.parentNode.dataset.listId);
     }
@@ -28,11 +31,14 @@ var List = React.createClass({
             list.birth.split("月").join("/").match(search)));
       });
     }
+    var checkboxHead = this.props.readOnly ? null : (
+      <th><span className="glyphicon glyphicon-ok" aria-hidden="true"></span></th>
+    );
     return (
       <table className="table table-striped">
         <thead>
           <tr>
-            <th><span className="glyphicon glyphicon-ok" aria-hidden="true"></span></th>
+            {checkboxHead}
             <th>タイトル</th>
             <th>名前</th>
             <th>説明</th>
@@ -46,18 +52,24 @@ var List = React.createClass({
             if (list.birth_rd < 10) {
               remain = " (" + list.birth_rd +  "日後)";
             }
+            var checkbox = this.props.readOnly ? null : (
+              <td>
+                <input type="checkbox" checked={list.checked} onChange={this.handleCheck} />
+              </td>
+            );
+            var actionButton = this.props.readOnly ? (
+              <button onClick={this.handleAddClick} className="btn btn-default btn-xs">追加</button>
+            ) : (
+              <a onClick={this.handleRemoveClick} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
+            );
             return (
               <tr data-list-id={list.id}>
-                <td>
-                  <input type="checkbox" checked={list.checked} onChange={this.handleCheck} />
-                </td>
+                {checkbox}
                 <td><a href={list.url} target="_blank">{list.title}</a></td>
                 <td>{list.name}</td>
                 <td>{list.desc}</td>
                 <td>{list.birth}<strong>{remain}</strong></td>
-                <td className="action">
-                  <a onClick={this.handleClick} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
-                </td>
+                <td className="action">{actionButton}</td>
               </tr>
             );
           }.bind(this))}

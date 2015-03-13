@@ -11,10 +11,18 @@ var Store = {
     remove: [],
     check: [],
   },
+  listJsonPath: "/list.json",
+  readOnly: false,
+  setName: function(name) {
+    if (name) {
+      this.listJsonPath = "/user/" + name + ".json";
+      this.readOnly = true;
+    }
+  },
   fetchAll: function() {
     var store = this;
     superagent
-      .get("/list.json")
+      .get(this.listJsonPath)
       .end(function(err, res) {
         if (res.ok) {
           store.dispatch("fetch", res.body);
@@ -24,6 +32,7 @@ var Store = {
       });
   },
   create: function(url) {
+    if (this.readOnly) { return; }
     var store = this;
     store.dispatch("adding");
     superagent
@@ -39,6 +48,7 @@ var Store = {
       });
   },
   remove: function(id) {
+    if (this.readOnly) { return; }
     var store = this;
     store.dispatch("removing", id);
     superagent
@@ -55,6 +65,7 @@ var Store = {
       });
   },
   check: function(id, checked, errorCallback) {
+    if (this.readOnly) { return; }
     var store = this;
     superagent
       .post("/check")

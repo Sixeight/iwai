@@ -11,10 +11,12 @@ var App = React.createClass({
     return {
       wishlists: [],
       search: "",
-      error: ""
+      error: "",
     };
   },
   componentDidMount: function() {
+    var name = document.getElementById("user-name").getAttribute("data-name");
+    Store.setName(name);
     Store.on("fetch", this.fetchCalback);
     Store.on("error", this.errorCallback);
     Store.on("change", this.changeCallback);
@@ -85,8 +87,8 @@ var App = React.createClass({
     return (
       <div>
         <Error error={this.state.error} />
-        <Form onChange={this.handleSearch} />
-        <List wishlists={this.state.wishlists} search={this.state.search} />
+        <Form onChange={this.handleSearch} readOnly={Store.readOnly} />
+        <List wishlists={this.state.wishlists} search={this.state.search} readOnly={Store.readOnly} />
       </div>
     );
   },

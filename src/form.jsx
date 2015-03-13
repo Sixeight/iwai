@@ -10,6 +10,9 @@ var Form = React.createClass({
   },
   handleSubmit: function(e) {
     e.preventDefault();
+    if (this.props.readOnly) {
+      return;
+    }
     if (this.state.url == "") {
       return;
     }
@@ -30,10 +33,16 @@ var Form = React.createClass({
     });
   },
   render: function() {
+    var placeholder = "ほしいものリストのURL - 例: http://www.amazon.co.jp/wishlist/1IP75E0X07VWZ";
+    var inputType = "url";
+    if (this.props.readOnly) {
+      placeholder = "検索ワード";
+      inputType = "search";
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <input type="url" onChange={this.handleChange} className="form-control" value={this.state.url} placeholder="ほしいものリストのURL - 例: http://www.amazon.co.jp/wishlist/1IP75E0X07VWZ" />
+          <input type={inputType} onChange={this.handleChange} className="form-control" value={this.state.url} placeholder={placeholder} />
         </div>
       </form>
     )
