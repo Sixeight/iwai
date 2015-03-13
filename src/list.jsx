@@ -69,7 +69,7 @@ var List = React.createClass({
                 <td>{list.name}</td>
                 <td>{list.desc}</td>
                 <td>{list.birth}<strong>{remain}</strong></td>
-                <td className="action">{actionButton}</td>
+                <td className="action">{list.has ? null : actionButton}</td>
               </tr>
             );
           }.bind(this))}
