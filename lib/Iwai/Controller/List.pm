@@ -15,9 +15,23 @@ sub index {
   $c->render_html("index");
 }
 
-sub json {
+sub my_json {
   my ($class, $c) = @_;
   my $lists = Iwai::Service::UserWishlist->all_wishlists_by_user_id($c->user->id);
+  render_json($c, $lists);
+}
+
+sub user_json {
+  my ($class, $c, $m) = @_;
+  my $name = $m->{name};
+  my $user = Iwai::Service::User->find_by_name($name)
+    or die Iwai::Error->new(code => 404);
+  my $lists = Iwai::Service::UserWishlist->all_wishlists_by_user_id($user->id);
+  render_json($c, $lists);
+}
+
+sub render_json {
+  my ($c, $lists) = @_;
   $lists = sort_wish_list($lists);
   $c->render_json([map { $_->to_hash_ref } @$lists]);
 }

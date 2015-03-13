@@ -18,7 +18,12 @@ sub mk_router {
 
     connect "/list.json" => {
       controller => "List",
-      action     => "json",
+      action     => "my_json",
+    };
+
+    connect "/user/:name.json" => {
+      controller => "List",
+      action     => "user_json",
     };
 
     connect "/add" => {
