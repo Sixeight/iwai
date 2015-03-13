@@ -36,7 +36,7 @@ sub run {
     }
     $controller = join "::", "Iwai", "Controller", $controller;
     Plack::Util::load_class($controller);
-    $controller->$action($context);
+    $controller->$action($context, $match);
   } catch {
     my $error = $_;
     if (ref $error ne "Iwai::Error") {
