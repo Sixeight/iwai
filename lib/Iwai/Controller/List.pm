@@ -27,6 +27,7 @@ sub user_json {
   my $user = Iwai::Service::User->find_by_name($name)
     or die Iwai::Error->new(code => 404);
   my $lists = Iwai::Service::UserWishlist->all_wishlists_by_user_id($user->id);
+  $_->readonly(1) for @$lists;
   render_json($c, $lists);
 }
 
