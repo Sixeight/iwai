@@ -2,6 +2,7 @@
 
 : override js -> {
   : if $c.user {
+    <script id="user-name" type="text/plain" data-name="<: $name :>"></script>
     <script src="/js/app.js" type="text/javascript"></script>
   : }
 : }

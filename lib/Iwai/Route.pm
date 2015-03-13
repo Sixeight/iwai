@@ -26,6 +26,11 @@ sub mk_router {
       action     => "user_json",
     };
 
+    connect "/user/:name" => {
+      controller => "List",
+      action     => "index",
+    };
+
     connect "/add" => {
       controller => "List",
       action     => "create",
