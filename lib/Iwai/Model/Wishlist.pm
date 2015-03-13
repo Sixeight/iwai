@@ -25,6 +25,12 @@ use JSON::Types ();
 
 use Iwai::Util;
 
+sub readonly {
+  my $self = shift;
+  $self->{_readonly} = $_[0] if (scalar(@_) == 1);
+  $self->{_readonly};
+}
+
 sub birth {
   my $self = shift;
   $self->{_birth} ||= eval {
@@ -63,7 +69,7 @@ sub updated_at {
 
 sub to_hash_ref {
   my $self = shift;
-  {
+  my $hash = {
     id         => $self->id,
     url        => $self->url,
     title      => $self->title,
@@ -71,10 +77,13 @@ sub to_hash_ref {
     birth      => $self->birth_str,
     birth_rd   => $self->birth_remain_days,
     desc       => $self->description,
-    checked    => JSON::Types::bool $self->checked,
     created_at => $self->{created_at},
     updated_at => $self->{updated_at},
+  };
+  if (!$self->readonly) {
+    $hash->{checked} = JSON::Types::bool $self->checked;
   }
+  $hash;
 }
 
 1;
