@@ -45,6 +45,11 @@ sub mk_router {
       controller => "List",
       action     => "check",
     }, { method => "POST" };
+
+    connect "/copy" => {
+      controller => "List",
+      action     => "copy",
+    }, { method => "POST" };
   };
 }
 

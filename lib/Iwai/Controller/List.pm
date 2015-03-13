@@ -83,6 +83,14 @@ sub check {
   $c->render_text("ok");
 }
 
+sub copy {
+  my ($class, $c) = @_;
+  my $params = $c->request->parameters;
+  my $wishlist_id = $params->{wishlist_id};
+  Iwai::Service::UserWishlist->create($c->user->id, $wishlist_id);
+  $c->render_text("ok");
+}
+
 # Utilties
 
 sub render_json {
