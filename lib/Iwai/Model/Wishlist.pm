@@ -18,7 +18,7 @@ use utf8;
 
 use Class::Accessor::Lite (
   ro  => [qw( id url title name description checked )],
-  rw  => [qw( readonly )],
+  rw  => [qw( readonly has )],
   new => 1,
 );
 
@@ -75,7 +75,9 @@ sub to_hash_ref {
     created_at => $self->{created_at},
     updated_at => $self->{updated_at},
   };
-  if (!$self->readonly) {
+  if ($self->readonly) {
+    $hash->{has} = JSON::Types::bool $self->has;
+  } else {
     $hash->{checked} = JSON::Types::bool $self->checked;
   }
   $hash;
