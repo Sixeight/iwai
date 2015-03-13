@@ -33,7 +33,7 @@ var Form = React.createClass({
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <input type="url" onChange={this.handleChange} className="form-control" value={this.state.url} placeholder="ほしいものリストのURL" />
+          <input type="url" onChange={this.handleChange} className="form-control" value={this.state.url} placeholder="ほしいものリストのURL - 例: http://www.amazon.co.jp/wishlist/1IP75E0X07VWZ" />
         </div>
       </form>
     )
