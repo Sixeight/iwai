@@ -18,18 +18,13 @@ use utf8;
 
 use Class::Accessor::Lite (
   ro      => [qw( id url title name description checked )],
+  rw      => [qw( readonly )],
   new     => 1,
 );
 
 use JSON::Types ();
 
 use Iwai::Util;
-
-sub readonly {
-  my $self = shift;
-  $self->{_readonly} = $_[0] if (scalar(@_) == 1);
-  $self->{_readonly};
-}
 
 sub birth {
   my $self = shift;
