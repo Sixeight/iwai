@@ -77,6 +77,7 @@ sub to_hash_ref {
   };
   if ($self->readonly) {
     $hash->{has} = JSON::Types::bool $self->has;
+    $hash->{wishlist_id} = $self->{list_id};
   } else {
     $hash->{checked} = JSON::Types::bool $self->checked;
   }
