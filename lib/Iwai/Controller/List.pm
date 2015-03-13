@@ -33,7 +33,11 @@ sub user_json {
   my $user = Iwai::Service::User->find_by_name($name)
     or die Iwai::Error->new(code => 404);
   my $lists = Iwai::Service::UserWishlist->all_wishlists_by_user_id($user->id);
-  $_->readonly(1) for @$lists;
+  my $wishlist_id_map = Iwai::Service::UserWishlist->wishlist_id_map_by_user_id($c->user->id);
+  for my $list (@$lists) {
+    $list->readonly(1);
+    $list->has($wishlist_id_map->{$list->{list_id}});
+  }
   render_json($c, $lists);
 }
 
