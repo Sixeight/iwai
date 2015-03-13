@@ -7,13 +7,13 @@ var List = React.createClass({
   },
   handleRemoveClick: function(e) {
     if (confirm("本当に削除しますか？")) {
-      Store.remove(e.target.parentNode.parentNode.dataset.listId);
+      Store.remove(e.target.parentNode.parentNode.dataset.id);
     }
   },
   handleCheck: function(e) {
     var target = e.target;
     var checked = target.checked ? 1 : 0;
-    var id = target.parentNode.parentNode.dataset.listId;
+    var id = target.parentNode.parentNode.dataset.id;
     Store.check(id, checked, function() {
       target.checked = checked == 1 ? false : true;
     });
@@ -63,7 +63,7 @@ var List = React.createClass({
               <a onClick={this.handleRemoveClick} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
             );
             return (
-              <tr data-list-id={list.id}>
+              <tr data-id={list.id} data-list-id={list.wishlist_id}>
                 {checkbox}
                 <td><a href={list.url} target="_blank">{list.title}</a></td>
                 <td>{list.name}</td>
