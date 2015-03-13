@@ -18,17 +18,7 @@ sub index {
 sub json {
   my ($class, $c) = @_;
   my $lists = Iwai::Service::UserWishlist->all_wishlists_by_user_id($c->user->id);
-  my $this_years = [];
-  my $next_years = [];
-  my $now = Iwai::Util->now->set(year => 1970);
-  for my $list (@$lists) {
-    if ($list->birth && $now < $list->birth) {
-      push @$this_years, $list;
-    } else {
-      push @$next_years, $list;
-    }
-  }
-  $lists = [(@$this_years, @$next_years)];
+  $lists = sort_wish_list($lists);
   $c->render_json([map { $_->to_hash_ref } @$lists]);
 }
 
@@ -97,6 +87,21 @@ sub create_wish_list {
     birth   => $birth,
     desc    => $desc,
   });
+}
+
+sub sort_wish_list {
+  my $lists = shift;
+  my $this_years = [];
+  my $next_years = [];
+  my $now = Iwai::Util->now->set(year => 1970);
+  for my $list (@$lists) {
+    if ($list->birth && $now < $list->birth) {
+      push @$this_years, $list;
+    } else {
+      push @$next_years, $list;
+    }
+  }
+  [(@$this_years, @$next_years)];
 }
 
 1;
