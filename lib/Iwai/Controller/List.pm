@@ -49,7 +49,7 @@ sub create {
   my $wishlist = Iwai::Service::Wishlist->find_by_url($url);
   unless ($wishlist) {
     # FIXME: I wanna fech last_insert_id
-    $class->create_wish_list($url);
+    create_wish_list($url);
     $wishlist = Iwai::Service::Wishlist->find_by_url($url);
   }
   Iwai::Service::UserWishlist->create($c->user->id, $wishlist->id);
@@ -79,7 +79,7 @@ sub check {
 }
 
 sub create_wish_list {
-  my ($class, $url) = @_;
+  my $url = shift;
 
   my $info = Iwai::Util::ListInfoFetcher->fetch($url)
     or die Iwai::Error->new(code => 404);
