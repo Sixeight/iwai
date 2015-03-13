@@ -10,6 +10,8 @@ var Store = {
     removing: [],
     remove: [],
     check: [],
+    copy: [],
+    copying: [],
   },
   listJsonPath: "/list.json",
   readOnly: false,
@@ -77,6 +79,23 @@ var Store = {
         } else {
           errorCallback();
           store.dispatch("error", "マークをつけられませんでした");
+        }
+      });
+  },
+  copy: function(wishlisId) {
+    if (!this.readOnly) { return; }
+    var store = this;
+    store.dispatch("copying", wishlisId);
+    superagent
+      .post("/copy")
+      .type("form")
+      .send({wishlist_id: wishlisId})
+      .end(function(err, res) {
+        if (res.ok) {
+          store.dispatch("copy", wishlisId)
+        } else {
+          store.dispatch("change");
+          store.dispatch("error", "追加出来ませんでした");
         }
       });
   },

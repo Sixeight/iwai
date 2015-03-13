@@ -3,7 +3,7 @@ var Store = require("./store.js")
 
 var List = React.createClass({
   handleAddClick: function(e) {
-    alert("追加！");
+    Store.copy(e.target.parentNode.parentNode.dataset.listId);
   },
   handleRemoveClick: function(e) {
     if (confirm("本当に削除しますか？")) {
@@ -62,6 +62,7 @@ var List = React.createClass({
             ) : (
               <a onClick={this.handleRemoveClick} className="glyphicon glyphicon-remove" aria-hidden="true"></a>
             );
+            var copied = <span className="glyphicon glyphicon-ok copied" aria-hidden="true"></span>;
             return (
               <tr data-id={list.id} data-list-id={list.wishlist_id}>
                 {checkbox}
@@ -69,7 +70,7 @@ var List = React.createClass({
                 <td>{list.name}</td>
                 <td>{list.desc}</td>
                 <td>{list.birth}<strong>{remain}</strong></td>
-                <td className="action">{list.has ? null : actionButton}</td>
+                <td className="action">{list.has ? (list.copied ? copied : null) : actionButton}</td>
               </tr>
             );
           }.bind(this))}

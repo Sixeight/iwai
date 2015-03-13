@@ -31,3 +31,7 @@ table .action > a:active {
   top: 2px;
   left: 1px;
 }
+
+.copied {
+  color: #4cae4c;
+}

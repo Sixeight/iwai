@@ -23,6 +23,8 @@ var App = React.createClass({
     Store.on("adding", this.addingCallback);
     Store.on("removing", this.removingCallback);
     Store.on("check", this.checkCallback);
+    Store.on("copy", this.copyCallback);
+    Store.on("copying", this.copyingCallback);
     Store.fetchAll();
   },
   fetchCalback: function(list) {
@@ -76,6 +78,28 @@ var App = React.createClass({
     });
     this.setState({
       wishlist: list
+    });
+  },
+  copyCallback: function(wishlistId) {
+    var list = this.state.wishlists.map(function(list) {
+      if (list.wishlist_id == wishlistId) {
+        list.copied = true;
+      }
+      return list;
+    });
+    this.setState({
+      wishlists: list
+    });
+  },
+  copyingCallback: function(wishlistId) {
+    var list = this.state.wishlists.map(function(list) {
+      if (list.wishlist_id == wishlistId) {
+        list.has = true;
+      }
+      return list;
+    });
+    this.setState({
+      wishlists: list
     });
   },
   handleSearch: function(word) {
