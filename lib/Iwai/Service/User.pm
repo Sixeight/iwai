@@ -22,4 +22,12 @@ sub find_by_twitter_id {
   $ret ? $class->model_name->new($ret) : undef;
 }
 
+sub find_by_name {
+  my ($class, $name) = @_;
+  return unless $name;
+  my $sql = "SELECT * FROM users WHERE name = ? LIMIT 1";
+  my $ret = $class->dbh->select_row($sql, $name);
+  $ret ? $class->model_name->new($ret) : undef;
+}
+
 1;
