@@ -24,7 +24,7 @@ if ($ENV{PLACK_ENV} eq "deployment") {
 
 builder {
   enable "Static", (
-    path => qr(^/(?:images|js|css)/),
+    path => qr(^/(?:img|js|css)/),
     root => "public"
   );
   enable "AxsLog", (
