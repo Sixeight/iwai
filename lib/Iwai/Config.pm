@@ -38,6 +38,10 @@ sub is_production {
   $_[0]->env =~ /production/;
 }
 
+sub is_open_list {
+  $ENV{OPEN_LIST}
+}
+
 config db => +{
   time_zone => "UTC",
 };
