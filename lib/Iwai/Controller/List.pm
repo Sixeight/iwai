@@ -41,12 +41,6 @@ sub user_json {
   render_json($c, $lists);
 }
 
-sub render_json {
-  my ($c, $lists) = @_;
-  $lists = sort_wish_list($lists);
-  $c->render_json([map { $_->to_hash_ref } @$lists]);
-}
-
 sub create {
   my ($class, $c) = @_;
   my $params = $c->request->parameters;
@@ -87,6 +81,14 @@ sub check {
   my $checked = $params->{checked};
   Iwai::Service::UserWishlist->check($id, $checked);
   $c->render_text("ok");
+}
+
+# Utilties
+
+sub render_json {
+  my ($c, $lists) = @_;
+  $lists = sort_wish_list($lists);
+  $c->render_json([map { $_->to_hash_ref } @$lists]);
 }
 
 sub create_wish_list {
