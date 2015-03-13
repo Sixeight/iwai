@@ -9,12 +9,14 @@ use Iwai::Service::UserWishlist;
 use Iwai::Util::ListInfoFetcher;
 use Iwai::Error;
 use Iwai::Util;
+use Iwai::Config;
 
 sub index {
   my ($class, $c, $m) = @_;
   my $user = $c->user;
   my $name = $m->{name};
   if ($name) {
+    config->is_open_list or die Iwai::Error->new(code => 404);
     $user = Iwai::Service::User->find_by_name($name)
       or die Iwai::Error->new(code => 404);
   }
@@ -28,6 +30,7 @@ sub my_json {
 }
 
 sub user_json {
+  config->is_open_list or die Iwai::Error->new(code => 404);
   my ($class, $c, $m) = @_;
   my $name = $m->{name};
   my $user = Iwai::Service::User->find_by_name($name)
@@ -84,6 +87,7 @@ sub check {
 }
 
 sub copy {
+  config->is_open_list or die Iwai::Error->new(code => 404);
   my ($class, $c) = @_;
   my $params = $c->request->parameters;
   my $wishlist_id = $params->{wishlist_id};
