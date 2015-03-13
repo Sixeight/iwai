@@ -18,7 +18,6 @@ sub index {
     $user = Iwai::Service::User->find_by_name($name)
       or die Iwai::Error->new(code => 404);
   }
-  $name ||= $c->user && $c->user->name;
   $c->render_html("index", name => $name);
 }
 
