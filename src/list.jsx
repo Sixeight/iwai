@@ -64,7 +64,7 @@ var List = React.createClass({
             );
             var copied = <span className="glyphicon glyphicon-ok copied" aria-hidden="true"></span>;
             return (
-              <tr data-id={list.id} data-list-id={list.wishlist_id}>
+              <tr key={list.id} data-id={list.id} data-list-id={list.wishlist_id}>
                 {checkbox}
                 <td><a href={list.url} target="_blank">{list.title}</a></td>
                 <td>{list.name}</td>
