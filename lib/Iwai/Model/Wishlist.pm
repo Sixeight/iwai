@@ -17,9 +17,9 @@ use utf8;
 # );
 
 use Class::Accessor::Lite (
-  ro      => [qw( id url title name description checked )],
-  rw      => [qw( readonly )],
-  new     => 1,
+  ro  => [qw( id url title name description checked )],
+  rw  => [qw( readonly )],
+  new => 1,
 );
 
 use JSON::Types ();

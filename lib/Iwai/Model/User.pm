@@ -13,8 +13,8 @@ use warnings;
 # CREATE INDEX users_twitter_id_index ON users (twitter_id);
 
 use Class::Accessor::Lite (
-  ro      => [qw( id name twitter_id )],
-  new     => 1
+  ro  => [qw( id name twitter_id )],
+  new => 1
 );
 
 use Iwai::Util;
