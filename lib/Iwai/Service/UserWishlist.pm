@@ -35,10 +35,17 @@ sub exists_by_user_id_and_list_id {
   defined $class->dbh->select_row($sql, $user_id, $list_id);
 }
 
+sub wishlist_id_map_by_user_id {
+  my ($class, $user_id) = @_;
+  my $sql = "SELECT wishlist_id FROM users_wishlists WHERE user_id = ?";
+  my $ret = $class->dbh->selectcol_arrayref($sql, {}, $user_id);
+  +{ map { $_ => 1 } @$ret };
+}
+
 sub all_wishlists_by_user_id {
   my ($class, $user_id) = @_;
   my $sql = <<EOS
-    SELECT map.id, map.checked, list.url, list.title, list.name, list.birth, list.description, list.created_at, list.updated_at
+    SELECT map.id, map.checked, list.id as list_id, list.url, list.title, list.name, list.birth, list.description, list.created_at, list.updated_at
       FROM users_wishlists as map
       JOIN wishlists as list ON map.wishlist_id = list.id
       WHERE map.user_id = ?
