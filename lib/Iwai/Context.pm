@@ -82,7 +82,7 @@ sub render_error {
   my $res = $self->response;
   $res->code($error->code);
   $res->content_type("text/plain");
-  unless (config->is_production) {
+  if (config->is_development) {
     $res->header("X-Error" => $error->message);
   }
   $res->content($error->message);
