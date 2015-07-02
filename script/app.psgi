@@ -39,5 +39,6 @@ builder {
     login_path      => "/login",
     logout_path     => "/logout"
   );
+  # enable "StackTrace", force => 1;
   $app;
 };
