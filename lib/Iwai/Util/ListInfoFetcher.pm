@@ -19,7 +19,7 @@ sub fetch {
   my $body = $res->decoded_content;
   my $tree = HTML::TreeBuilder::XPath->new;
   $tree->parse($body);
-  my $title = $tree->findvalue(selector_to_xpath("#regPageTitle"));
+  my $title = $tree->findvalue(selector_to_xpath("#content-right .profile .profile-layout-aid-top .clip-text > span"));
   my $desc  = $tree->findvalue(selector_to_xpath("#wlDesc"));
   my $name  = $tree->findvalue(selector_to_xpath(".g-profile-name"));
   my $birth = $tree->findvalue(selector_to_xpath(".g-profile-birthday"));
